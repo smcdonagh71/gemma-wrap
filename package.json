@@ -16,5 +16,10 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^41.2.0"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.17",
+    "chokidar": "^5.0.0",
+    "docx": "^9.6.1"
   }
 }

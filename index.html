@@ -74,6 +74,45 @@
     }
     #search-toggle.on .toggle-thumb { left: 14px; background: var(--accent); }
 
+    /* Filesystem toggle */
+    #fs-toggle {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 10px; color: var(--text-muted);
+      -webkit-app-region: no-drag; cursor: pointer; user-select: none;
+    }
+    #fs-toggle .toggle-track { width: 28px; height: 16px; border-radius: 8px; background: var(--border2); position: relative; transition: background 0.2s; }
+    #fs-toggle.on .toggle-track { background: #7a5200; }
+    #fs-toggle .toggle-thumb { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--text-muted); transition: all 0.2s; }
+    #fs-toggle.on .toggle-thumb { left: 14px; background: var(--warn); }
+
+    /* Confirmation modal */
+    #confirm-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.7); align-items: center; justify-content: center;
+    }
+    #confirm-overlay.show { display: flex; }
+    #confirm-modal {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 12px; padding: 24px; width: 500px; max-width: 90vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      animation: fadeSlide 0.2s ease;
+    }
+    #confirm-modal h3 { font-family: var(--ui); font-size: 14px; font-weight: 600; color: var(--warn); margin-bottom: 6px; }
+    #confirm-modal .confirm-path { font-size: 12px; color: var(--file-color); margin-bottom: 12px; word-break: break-all; }
+    #confirm-modal .confirm-preview {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 7px; padding: 10px 12px; font-size: 11px; line-height: 1.6;
+      color: var(--text-muted); max-height: 160px; overflow-y: auto;
+      white-space: pre-wrap; word-break: break-word; margin-bottom: 16px;
+      font-family: var(--mono);
+    }
+    #confirm-modal .confirm-meta { font-size: 10px; color: var(--text-dim); margin-bottom: 16px; }
+    #confirm-modal .confirm-btns { display: flex; gap: 10px; justify-content: flex-end; }
+    .confirm-deny  { padding: 8px 20px; border-radius: 7px; border: 1px solid var(--border2); background: transparent; color: var(--text-muted); font-family: var(--mono); font-size: 12px; cursor: pointer; transition: all 0.15s; }
+    .confirm-deny:hover { border-color: var(--danger); color: var(--danger); }
+    .confirm-allow { padding: 8px 20px; border-radius: 7px; border: 1px solid var(--warn); background: rgba(240,165,0,0.1); color: var(--warn); font-family: var(--mono); font-size: 12px; cursor: pointer; transition: all 0.15s; }
+    .confirm-allow:hover { background: var(--warn); color: var(--bg); }
+
     #status-dot {
       width: 7px; height: 7px; border-radius: 50%;
       background: var(--text-dim); margin-left: auto;
@@ -275,6 +314,54 @@
     #send-btn.stop { border-color: var(--danger); background: rgba(255,107,107,0.1); color: var(--danger); }
     #send-btn.stop:hover { background: var(--danger); color: var(--bg); }
 
+    /* File watcher notification banner */
+    #file-notifications {
+      position: fixed; bottom: 20px; right: 20px;
+      display: flex; flex-direction: column; gap: 8px;
+      z-index: 998; max-width: 340px;
+    }
+    .file-notif {
+      background: var(--surface);
+      border: 1px solid var(--file-color);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      display: flex; align-items: flex-start; gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      animation: slideIn 0.25s ease;
+      position: relative;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .file-notif-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .file-notif-body { flex: 1; min-width: 0; }
+    .file-notif-title { font-size: 10px; font-family: var(--ui); font-weight: 600; letter-spacing: 0.5px; color: var(--file-color); margin-bottom: 3px; }
+    .file-notif-name  { font-size: 11px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 6px; }
+    .file-notif-meta  { font-size: 10px; color: var(--text-dim); margin-bottom: 8px; }
+    .file-notif-btns  { display: flex; gap: 6px; }
+    .file-notif-ask {
+      padding: 4px 10px; border-radius: 5px;
+      border: 1px solid var(--accent-dim); background: var(--accent-glow);
+      color: var(--accent); font-family: var(--mono); font-size: 10px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .file-notif-ask:hover { background: var(--accent); color: var(--bg); }
+    .file-notif-dismiss {
+      padding: 4px 8px; border-radius: 5px;
+      border: 1px solid var(--border2); background: transparent;
+      color: var(--text-muted); font-family: var(--mono); font-size: 10px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .file-notif-dismiss:hover { border-color: var(--danger); color: var(--danger); }
+    .file-notif-close {
+      position: absolute; top: 6px; right: 8px;
+      background: none; border: none; color: var(--text-dim);
+      font-size: 14px; cursor: pointer; line-height: 1; padding: 0;
+      transition: color 0.15s;
+    }
+    .file-notif-close:hover { color: var(--text-muted); }
+
     /* Toast */
     #toast {
       position: fixed; bottom: 80px; left: 50%;
@@ -297,6 +384,10 @@
   <div id="search-toggle" title="Toggle web search">
     <div class="toggle-track"><div class="toggle-thumb"></div></div>
     <span id="search-label">Search off</span>
+  </div>
+  <div id="fs-toggle" title="Toggle filesystem access (~/ai)">
+    <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    <span id="fs-label">~/ai off</span>
   </div>
   <span id="status-label">checking…</span>
   <div id="status-dot"></div>
@@ -371,6 +462,23 @@
 
 <input type="file" id="file-input" multiple
   accept=".txt,.md,.markdown,.csv,.json,.jsonl,.js,.jsx,.ts,.tsx,.mjs,.cjs,.py,.rb,.rs,.go,.java,.c,.cpp,.h,.css,.scss,.html,.xml,.yaml,.yml,.sh,.bash,.zsh,.env,.toml,.ini,.cfg,.log,.sql" />
+<!-- File watcher notifications -->
+<div id="file-notifications"></div>
+
+<!-- Confirmation modal for write_file -->
+<div id="confirm-overlay">
+  <div id="confirm-modal">
+    <h3>⚠ Write File — Confirmation Required</h3>
+    <div class="confirm-path" id="confirm-path"></div>
+    <div class="confirm-preview" id="confirm-preview"></div>
+    <div class="confirm-meta" id="confirm-meta"></div>
+    <div class="confirm-btns">
+      <button class="confirm-deny" id="confirm-deny">Deny</button>
+      <button class="confirm-allow" id="confirm-allow">Allow Write</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -408,6 +516,7 @@ let stopRequested = false;
 let attachedFiles = [];
 let availableModels = [];
 let searchEnabled = false;
+let fsEnabled = false;
 
 // ── DOM refs ───────────────────────────────────────────────────────────────────
 const convList    = document.getElementById('conv-list');
@@ -429,6 +538,14 @@ const statusLabel = document.getElementById('status-label');
 const modelSelect = document.getElementById('model-select');
 const searchToggle= document.getElementById('search-toggle');
 const searchLabel = document.getElementById('search-label');
+const fsToggle    = document.getElementById('fs-toggle');
+const fsLabel     = document.getElementById('fs-label');
+const confirmOverlay = document.getElementById('confirm-overlay');
+const confirmPath    = document.getElementById('confirm-path');
+const confirmPreview = document.getElementById('confirm-preview');
+const confirmMeta    = document.getElementById('confirm-meta');
+const confirmDeny    = document.getElementById('confirm-deny');
+const confirmAllow   = document.getElementById('confirm-allow');
 const chatArea    = document.getElementById('chat-area');
 const toast       = document.getElementById('toast');
 
@@ -490,6 +607,35 @@ searchToggle.addEventListener('click', () => {
   searchEnabled = !searchEnabled;
   searchToggle.classList.toggle('on', searchEnabled);
   searchLabel.textContent = searchEnabled ? 'Search on' : 'Search off';
+});
+
+// ── Filesystem toggle ──────────────────────────────────────────────────────────
+fsToggle.addEventListener('click', () => {
+  fsEnabled = !fsEnabled;
+  fsToggle.classList.toggle('on', fsEnabled);
+  fsLabel.textContent = fsEnabled ? '~/ai on' : '~/ai off';
+  if (fsEnabled) showToast('📁 File access enabled — Gemma can read/write ~/ai');
+});
+
+// ── Confirmation modal ─────────────────────────────────────────────────────────
+window.gemma.onConfirmRequest((data) => {
+  confirmPath.textContent = `~/ai/${data.path}`;
+  confirmPreview.textContent = data.preview;
+  confirmMeta.textContent = `${data.size.toLocaleString()} characters`;
+  confirmOverlay.classList.add('show');
+  // Bring window to front so user sees the dialog
+  window.gemma.focusWindow();
+
+  const resolve = (approved) => {
+    confirmOverlay.classList.remove('show');
+    confirmDeny.removeEventListener('click', denyHandler);
+    confirmAllow.removeEventListener('click', allowHandler);
+    window.gemma.resolveConfirm(data.id, approved);
+  };
+  const denyHandler  = () => resolve(false);
+  const allowHandler = () => resolve(true);
+  confirmDeny.addEventListener('click',  denyHandler);
+  confirmAllow.addEventListener('click', allowHandler);
 });
 
 // ── Conversations ──────────────────────────────────────────────────────────────
@@ -673,7 +819,14 @@ userInput.addEventListener('input', () => {
 userInput.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!streaming) handleSend(); }
 });
-sendBtn.addEventListener('click', () => { if (streaming) stopRequested = true; else handleSend(); });
+sendBtn.addEventListener('click', () => {
+  if (streaming) {
+    stopRequested = true;
+    window.gemma.abort(); // kill the HTTP request in main process
+  } else {
+    handleSend();
+  }
+});
 
 function buildUserContent(text) {
   if (!attachedFiles.length) return text;
@@ -716,10 +869,22 @@ async function handleSend() {
   let fullResponse = '';
   window.gemma.removeListeners();
 
-  window.gemma.onToolCall(({ query }) => {
+  window.gemma.onToolCall((data) => {
     const pill = document.createElement('div');
     pill.className = 'search-pill';
-    pill.innerHTML = `<span class="dot"></span>Searching: ${esc(query)}`;
+    if (data.tool === 'web_search') {
+      pill.innerHTML = `<span class="dot"></span>Searching: ${esc(data.query)}`;
+    } else if (data.tool === 'read_file') {
+      pill.innerHTML = `<span class="dot"></span>Reading: ~/ai/${esc(data.path)}`;
+    } else if (data.tool === 'list_directory') {
+      pill.innerHTML = `<span class="dot"></span>Listing: ~/ai/${esc(data.path || '')}`;
+    } else if (data.tool === 'write_file') {
+      pill.innerHTML = `<span class="dot"></span>Writing: ~/ai/${esc(data.path)} (${(data.size||0).toLocaleString()} chars)`;
+    } else if (data.tool === 'unzip_file') {
+      pill.innerHTML = `<span class="dot"></span>Unzipping: ~/ai/${esc(data.path)}`;
+    } else if (data.tool === 'write_docx') {
+      pill.innerHTML = `<span class="dot"></span>Generating Word doc: ~/ai/${esc(data.path)}`;
+    }
     aiBubble.parentNode.parentNode.insertBefore(pill, aiBubble.parentNode);
     messagesEl.scrollTop = messagesEl.scrollHeight;
   });
@@ -746,6 +911,7 @@ async function handleSend() {
       maxTokens: parseInt(tokensSlider.value),
       model: modelSelect.value,
       searchEnabled,
+      fsEnabled,
     });
   } catch(err) {
     aiBubble.classList.remove('streaming');
@@ -798,6 +964,69 @@ function showToast(msg, duration = 3000) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), duration);
 }
+
+// ── File watcher notifications ────────────────────────────────────────────────
+const fileNotifications = document.getElementById('file-notifications');
+
+function fmtSizeSmall(bytes) {
+  if (bytes < 1024) return bytes + 'B';
+  if (bytes < 1048576) return (bytes/1024).toFixed(1) + 'KB';
+  return (bytes/1048576).toFixed(1) + 'MB';
+}
+
+// Register once at startup — outside removeListeners cycle
+window.gemma.onFileAdded((data) => {
+  showFileNotification(data);
+});
+
+function showFileNotification(data) {
+  const { relativePath, size, ext } = data;
+  const icon = ext === '.zip' ? '🗜️' :
+               ['.md','.txt','.log'].includes(ext) ? '📄' :
+               ['.py','.js','.ts','.sh'].includes(ext) ? '💻' :
+               ext === '.docx' ? '📝' :
+               ext === '.csv' ? '📊' : '📁';
+
+  const notif = document.createElement('div');
+  notif.className = 'file-notif';
+  notif.innerHTML = `
+    <div class="file-notif-icon">${icon}</div>
+    <div class="file-notif-body">
+      <div class="file-notif-title">NEW FILE IN ~/ai</div>
+      <div class="file-notif-name" title="${esc(relativePath)}">${esc(relativePath)}</div>
+      <div class="file-notif-meta">${fmtSizeSmall(size)}</div>
+      <div class="file-notif-btns">
+        <button class="file-notif-ask">Ask Gemma</button>
+        <button class="file-notif-dismiss">Dismiss</button>
+      </div>
+    </div>
+    <button class="file-notif-close" title="Close">✕</button>
+  `;
+
+  const dismiss = () => {
+    notif.style.transition = 'opacity 0.2s, transform 0.2s';
+    notif.style.opacity = '0';
+    notif.style.transform = 'translateX(30px)';
+    setTimeout(() => notif.remove(), 220);
+  };
+
+  notif.querySelector('.file-notif-close').addEventListener('click', dismiss);
+  notif.querySelector('.file-notif-dismiss').addEventListener('click', dismiss);
+
+  notif.querySelector('.file-notif-ask').addEventListener('click', () => {
+    dismiss();
+    userInput.value = `A new file has appeared in ~/ai: ${relativePath} (${fmtSizeSmall(size)}). Please read it and tell me what it contains.`;
+    userInput.style.height = 'auto';
+    userInput.style.height = Math.min(userInput.scrollHeight, 180) + 'px';
+    userInput.focus();
+    setTimeout(() => { if (!streaming) handleSend(); }, 300);
+  });
+
+  fileNotifications.appendChild(notif);
+  // Auto-dismiss after 30 seconds
+  setTimeout(dismiss, 30000);
+}
+
 </script>
 </body>
 </html>
