@@ -1,0 +1,20 @@
+{
+  "name": "gemma-desktop",
+  "version": "1.0.0",
+  "description": "Electron desktop wrapper for Gemma via Ollama",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "gemma",
+    "ollama",
+    "ai"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^41.2.0"
+  }
+}
